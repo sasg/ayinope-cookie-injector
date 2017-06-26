@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "AYINOPE PayPal Injector",
-  "description": "This extension injects site cookies into paypal links",
+  "name": "AYINOPE Cookie Injector",
+  "description": "Injects cookies into a site when available in the query string",
   "version": "1.0",
 
   "browser_action": {
     "default_icon": "ayinope.png",
     "default_popup": "popup.html",
-    "default_title": "PayPal Injector"
+    "default_title": "AYINOPE Cookie Injector"
   },
   "permissions": [
     "activeTab",
@@ -19,7 +19,7 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://www.paypal.com/*","https://live.adyen.com/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["injector.js"]
     }
   ],

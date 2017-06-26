@@ -1,3 +1,3 @@
-chrome.runtime.sendMessage({search: location.search}, function(response) {
-    console.log(response);
+chrome.runtime.sendMessage({ search: location.search }, (response) => {
+  console.log(response);
 });
