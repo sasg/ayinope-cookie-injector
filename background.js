@@ -14,7 +14,7 @@ setCookie = (cookie) => {
 getDomain = (url) => {
   let domain = url.indexOf('://') > -1 ? url.split('/')[2] : url.split('/')[0];
   return domain.split(':')[0];
-}
+};
 
 cookieValid = (cookie) => {
   let valid = true;
@@ -26,7 +26,7 @@ cookieValid = (cookie) => {
     }
   }
   return valid;
-}
+};
 
 chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
