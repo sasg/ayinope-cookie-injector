@@ -20,7 +20,7 @@ cookieValid = (cookie) => {
   let valid = true;
   for (let property in cookie) {
     if (cookie.hasOwnProperty(property)) {
-      if (typeof cookie[property] == 'undefined') {
+      if (typeof cookie[property] == 'undefined' || cookie[property] == null) {
         valid = false;
       }
     }
