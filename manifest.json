@@ -3,7 +3,7 @@
 
   "name": "AYINOPE Cookie Injector",
   "description": "Injects cookies into a site when available in the query string",
-  "version": "1.0",
+  "version": "0.0.0.1",
 
   "browser_action": {
     "default_icon": "ayinope.png",
