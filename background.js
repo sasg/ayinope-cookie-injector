@@ -28,23 +28,43 @@ cookieValid = (cookie) => {
   return valid;
 };
 
+setCookieIfValid = (name, url, value) => {
+  let cookie = {
+    name: name,
+    url: url,
+    value: value
+  };
+  if (cookieValid(cookie)) {
+    setCookie(cookie);
+    let domain = getDomain(cookie.url);
+    let notification = {
+      type: 'basic',
+      title: 'Cookie Set',
+      message: domain,
+      iconUrl: 'ayinope.png'
+    };
+    chrome.notifications.create('cookie set', notification, (id) => { });
+    return cookie;
+  }
+}
+
 chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
-    let cookie = {
-      name: getURLParameter('cookie_name', request.search),
-      url: getURLParameter('cookie_domain', request.search),
-      value: getURLParameter('cookie_value', request.search)
-    };
-    if (cookieValid(cookie)) {
-      setCookie(cookie);
-      let domain = getDomain(cookie.url);
-      let notification = {
-        type: 'basic',
-        title: 'Cookie Set',
-        message: domain,
-        iconUrl: 'ayinope.png'
-      };
-      chrome.notifications.create('cookie set', notification, (id) => { });
+    let is_multi = getURLParameter('is_multi', request.search);
+    let names = getURLParameter('cookie_name', request.search);
+    let urls = getURLParameter('cookie_domain', request.search);
+    let values = getURLParameter('cookie_value', request.search);
+    if (is_multi) {
+      names = JSON.parse(names);
+      urls = JSON.parse(urls);
+      values = JSON.parse(values);
+      let cookies = []
+      for (let i = 0; i < names.length; i++) {
+        cookies.push(setCookieIfValid(names[i], urls[i], values[i]));
+      }
+      sendResponse(cookies);
+    } else {
+      setCookieIfValid(names, urls, values);
       sendResponse(cookie);
     }
   }
